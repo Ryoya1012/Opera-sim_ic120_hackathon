@@ -105,7 +105,7 @@ class IC120AutonomyNode(Node):
         
         # ==================================
         # --- [4]  状態管理フラグの初期化 ---
-          ロボットが現在「どんな指示を待っているか」を記録する変数群
+        #  ロボットが現在「どんな指示を待っているか」を記録する変数群
         # ==================================
         self.tm_authorized_transport = False
         self.tm_authorized_tilt_up   = False
@@ -151,7 +151,7 @@ class IC120AutonomyNode(Node):
         if msg.data and not self.tm_authorized_transport:
             self.get_logger().info("[Task Manager] 指示を受信:搬送を開始")
             self.tm_authorized_transport = True
-            $ もし出発時に初期位置(0)にいる場合, 早とちりで終了報告しないよう次(1)を目指す
+            # もし出発時に初期位置(0)にいる場合, 早とちりで終了報告しないよう次(1)を目指す
             if self._current_index == 0 and len(self._waypoints) > 1:
                 self._current_index = 1
 
@@ -411,7 +411,7 @@ class IC120AutonomyNode(Node):
 
     def cb_bridge_cmd_vel( self, msg):
         # Nav2が計算した速度指示(/cmd_vel)を, ic120固有のトピックへそのまま転送するブリッジ機能
-        # self.pub_cmd_vel_passthrough.publish( msg)
+        self.pub_cmd_vel_passthrough.publish( msg)
 
 # ==============================
 # ---[エントリーポイント]---
